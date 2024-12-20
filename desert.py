@@ -11,21 +11,10 @@ TILE_SIZE = 32  # Size of each tile (32x32 pixels)
 SCREEN = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Desert Map")
 
-# Colors
-WHITE = (255, 255, 255)
-SAND_COLOR = (255, 223, 127)
-CACTUS_COLOR = (34, 139, 34)
-ROCK_COLOR = (169, 169, 169)
-
-# Load images (if you have desert-themed images, you can load them here)
-sand_img = pygame.Surface((TILE_SIZE, TILE_SIZE))
-sand_img.fill(SAND_COLOR)  # Sand tile (just a colored surface here for simplicity)
-
-cactus_img = pygame.Surface((TILE_SIZE, TILE_SIZE))
-cactus_img.fill(CACTUS_COLOR)  # Cactus tile (colored surface for simplicity)
-
-rock_img = pygame.Surface((TILE_SIZE, TILE_SIZE))
-rock_img.fill(ROCK_COLOR)  # Rock tile (colored surface)
+# Load images (Replace with your actual file paths)
+sand_img = pygame.image.load('sand.png').convert_alpha()  # Load sand image with transparency
+cactus_img = pygame.image.load('cactus.png').convert_alpha()  # Load cactus image with transparency
+camel_img = pygame.image.load('camel.png').convert_alpha()  # Load camel image with transparency
 
 # Define the Map
 class DesertMap:
@@ -40,17 +29,15 @@ class DesertMap:
         for row in range(self.height):
             map_row = []
             for col in range(self.width):
-                # Randomly assign different tiles for variety
-                tile = self.get_random_tile()
-                map_row.append(tile)
+                # Manually assign tiles for the demo (no random generation)
+                if row % 3 == 0:
+                    map_row.append(sand_img)  # Every 3rd row is sand
+                elif row % 3 == 1:
+                    map_row.append(cactus_img)  # Every 2nd row has cactus
+                else:
+                    map_row.append(sand_img)  # Default to sand
             map_grid.append(map_row)
         return map_grid
-
-    def get_random_tile(self):
-        # Randomly choose a tile (sand, cactus, or rock)
-        import random
-        tile_choice = random.choice([sand_img, cactus_img, rock_img])
-        return tile_choice
 
     def draw(self):
         # Draw all the tiles on the screen
@@ -64,33 +51,34 @@ class Player:
     def __init__(self, x, y):
         self.x = x
         self.y = y
-        self.image = pygame.Surface((TILE_SIZE, TILE_SIZE))
-        self.image.fill((0, 0, 255))  # Blue color for the player
+        self.image = pygame.image.load('omar.png').convert_alpha()  # Load player image
+        self.rect = self.image.get_rect()  # Get the rectangle of the image for positioning
 
     def move(self, dx, dy):
         self.x += dx
         self.y += dy
+        self.rect.topleft = (self.x * TILE_SIZE, self.y * TILE_SIZE)  # Update player position
 
     def draw(self):
-        SCREEN.blit(self.image, (self.x * TILE_SIZE, self.y * TILE_SIZE))
+        SCREEN.blit(self.image, self.rect)  # Draw the player image at the correct position
 
 # Initialize Desert Map
 desert_map = DesertMap(SCREEN_WIDTH // TILE_SIZE, SCREEN_HEIGHT // TILE_SIZE)
 
 # Initialize Player
-player = Player(5, 5)  # Start the player at position (5, 5)
+omar = Player(5, 5)  # Start the player at position (5, 5)
 
 # Main game loop
 clock = pygame.time.Clock()
 running = True
 while running:
-    SCREEN.fill(WHITE)  # Clear the screen
+    SCREEN.fill((255, 255, 255))  # Clear the screen (white background)
     
     # Draw the map
     desert_map.draw()
     
     # Draw the player
-    player.draw()
+    omar.draw()
 
     # Event handling
     for event in pygame.event.get():
@@ -100,13 +88,13 @@ while running:
     # Player movement (simple WASD control)
     keys = pygame.key.get_pressed()
     if keys[pygame.K_LEFT]:
-        player.move(-1, 0)
+        omar.move(-1, 0)
     if keys[pygame.K_RIGHT]:
-        player.move(1, 0)
+        omar.move(1, 0)
     if keys[pygame.K_UP]:
-        player.move(0, -1)
+        omar.move(0, -1)
     if keys[pygame.K_DOWN]:
-        player.move(0, 1)
+        omar.move(0, 1)
 
     # Update the display
     pygame.display.update()
@@ -117,3 +105,4 @@ while running:
 # Quit Pygame
 pygame.quit()
 sys.exit()
+
