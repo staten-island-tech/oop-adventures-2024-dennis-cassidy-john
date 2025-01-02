@@ -8,8 +8,12 @@ class Obstacles():
     def do_damage(self, player):
         player['health'] -= self.damage
         print(f'Player health is now {player.health}')
-    def cactus_damage():
+    def cactus_damage(self, player):
+        self.do_damage(player)
+    def quicksand_damage(self, player):
         self.do_damage(player)
         
 obstacle = Obstacles("cactus", "quicksand", 10)
 player = {'health':100}
+obstacle.cactus_damage(player)
+obstacle.quicksand_damage(player)
