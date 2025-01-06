@@ -4,13 +4,16 @@ class Obstacles():
         self.cactus = cactus
     def __str__(self):
         return f"{self.cactus}, {self.quicksand}"
+    
     def do_damage(self, player):
         player['health'] -= self.damage
         if player['health'] < 0: 
             player['health'] = 0
         print(f'Player health is now {player['health']}')
+    
     def cactus_damage(self, player):
         self.do_damage(player)
+    
     def quicksand_damage(self, player):
         self.do_damage(player)
         
