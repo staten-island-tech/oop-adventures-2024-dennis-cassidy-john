@@ -74,7 +74,7 @@ class Game:
     def __init__(self):
         self.omar = Omar(5, 5)  
         self.cacti = [Cactus(8, 8), Cactus(12, 6), Cactus(3, 10)]  
-        self.water = [water(8,8), water (12,6), water (3,10)]
+        self.water = [water(15,1), water (12,12), water (5,2)]
         self.countdown_time = 60  
         self.start_ticks = pygame.time.get_ticks()  
         self.game_over = False
@@ -119,6 +119,10 @@ class Game:
         if self.remaining_time <= 0:
             self.remaining_time = 0
             self.game_over = True  
+    
+    def check_water(self):
+        for water_tile in self.water:
+            self.omar.water(water_tile)
 
     def draw_game(self):
         screen.fill((255, 255, 255))  
