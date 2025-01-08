@@ -85,7 +85,10 @@ class Game:
                 self.display_game_over()
                 continue  
             self.handle_events()
+
             self.update_timer()
+
+            self.check_interactions()  
 
             self.draw_game()
 
@@ -114,15 +117,20 @@ class Game:
     def update_timer(self):
         elapsed_time = (pygame.time.get_ticks() - self.start_ticks) // 1000  
         self.remaining_time = self.countdown_time - elapsed_time
-
        
         if self.remaining_time <= 0:
             self.remaining_time = 0
             self.game_over = True  
-    
-    def check_water(self):
-        for water_tile in self.water:
-            self.omar.water(water_tile)
+
+    def check_interactions(self):
+        for cactus in self.cacti: 
+            if self.omar.obstacle(cactus):
+                self.cacti.remove(cactus)  
+                self.remaining_time -= 10
+        for water_tile in self.water:  
+            if self.omar.water(water_tile):
+                self.water.remove(water_tile)
+                self.remaining_time += 2
 
     def draw_game(self):
         screen.fill((255, 255, 255))  
