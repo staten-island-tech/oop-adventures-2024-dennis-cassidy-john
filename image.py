@@ -1,50 +1,39 @@
-import pygame
+from PIL import Image, ImageDraw
 import os
 
-# Initialize pygame
-pygame.init()
+# Load the base sprite
+base_sprite_path = "omar.PNG"  # Update to your sprite file name
+sprite = Image.open(base_sprite_path).convert("RGBA")
 
-# Screen dimensions
-WIDTH, HEIGHT = 800, 600
-screen = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("Running Animation")
-
-# Load animation frames
-def load_frames():
+# Function to create walking frames
+def create_walking_frames(sprite):
     frames = []
-    for i in range(1, 5):  # Assuming 4 frames
-        frame_path = os.path.join("frames", f"frame{i}.png")
-        print(f"Loading frame: {frame_path}")  # Debug print
-        frames.append(pygame.image.load(frame_path))
+    width, height = sprite.size
+
+    # Create multiple frames with slight changes
+    for i in range(3):  # Number of frames
+        frame = sprite.copy()
+        draw = ImageDraw.Draw(frame)
+
+        # Simulate leg movement
+        if i == 0:  # First frame: move left leg forward
+            draw.rectangle((20, height - 20, 24, height), fill=(0, 0, 0, 255))  # Example movement
+        elif i == 1:  # Second frame: move right leg forward
+            draw.rectangle((40, height - 20, 44, height), fill=(0, 0, 0, 255))
+        elif i == 2:  # Third frame: neutral position
+            draw.rectangle((30, height - 20, 34, height), fill=(0, 0, 0, 255))
+
+        frames.append(frame)
     return frames
 
-# Animation setup
-frames = load_frames()
-current_frame = 0
-frame_rate = 0.1  # Adjust to control animation speed
-clock = pygame.time.Clock()
+# Generate frames
+walking_frames = create_walking_frames(sprite)
 
-# Character position
-x, y = 100, 400
+# Save frames to a folder
+output_folder = "frames"
+os.makedirs(output_folder, exist_ok=True)
 
-# Main loop
-running = True
-while running:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
+for idx, frame in enumerate(walking_frames, start=1):
+    frame.save(f"{output_folder}/frame{idx}.png")
 
-    # Update frame
-    current_frame += frame_rate
-    if current_frame >= len(frames):
-        current_frame = 0
-
-    # Draw character
-    screen.fill((255, 255, 255))  # Clear screen with white background
-    screen.blit(frames[int(current_frame)], (x, y))
-    pygame.display.flip()
-
-    # Control the frame rate
-    clock.tick(60)
-
-pygame.quit()
+print(f"Frames saved to the '{output_folder}' folder.")
