@@ -5,19 +5,19 @@ class Obstacles():
     def __str__(self):
         return f"{self.cactus}, {self.quicksand}"
     
-    def do_damage(self, player):
-        player['health'] -= self.damage
+    def do_damage(self, player, damage):
+        player['health'] -= damage
         if player['health'] < 0: 
             player['health'] = 0
-        print(f'Player health is now {player['health']}')
+        print(f"Player health is now {player['health']}")
     
     def cactus_damage(self, player):
-        self.do_damage(player)
+        self.do_damage(player, self.cactus)
     
     def quicksand_damage(self, player):
-        self.do_damage(player)
+        self.do_damage(player, self.quicksand)
         
-obstacle = Obstacles("cactus", "quicksand", 10)
+obstacle = Obstacles(cactus= 10, quicksand = 10)
 player = {'health':100}
 
 obstacle.cactus_damage(player)
