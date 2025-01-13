@@ -1,6 +1,5 @@
 venv
-<<<<<<< HEAD
 venv
-=======
-.venv
->>>>>>> ef75e597dda38753158bd10405094eefb472a79b
+frames
+tilemap
+path
