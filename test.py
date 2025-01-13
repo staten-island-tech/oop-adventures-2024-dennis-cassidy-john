@@ -2,9 +2,9 @@ import pygame
 import csv
 
 # Constants
-TILE_SIZE = 16  
-SCREEN_WIDTH = 208 
-SCREEN_HEIGHT = 96
+TILE_SIZE = 32  
+SCREEN_WIDTH = 416 
+SCREEN_HEIGHT = 192
 
 # Function to load CSV data (tilemap layers)
 def load_csv_layers(filenames):
@@ -12,7 +12,7 @@ def load_csv_layers(filenames):
     for filename in filenames:
         data = []
         try:
-            with open(filename, 'r') as csvfile:
+            with open("tilemap.tmx", 'r') as csvfile:
                 reader = csv.reader(csvfile)
                 for row in reader:
                     try:
