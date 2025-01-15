@@ -10,6 +10,35 @@ screen_height = rows * tile_size
 screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption('Move Omar One Tile at a Time on 20x16 Grid with Countdown Timer')
 
+import base64
+
+with open('we need this.png', 'rb') as imagefile:
+    base64string = base64.b64encode(imagefile.read()).decode('ascii')
+
+print(base64string) 
+
+with open('testfile.txt', 'w') as outputfile:
+    outputfile.write(base64string)
+
+
+# Then make a simple test program:
+
+from tkinter import *
+root = Tk()
+
+# Paste the ascii representation into the program
+photo = 'iVBORw0KGgoAAAANS ... qQMAAAAASUVORK5CYII='
+
+img = PhotoImage(data=photo)
+label = Label(root, image=img).pack()
+
+
+
+
+
+
+
+BackGround = ('we need this.png', [0,0])
 
 omar_image = pygame.image.load('omar.png')  
 omar_image = pygame.transform.scale(omar_image, (tile_size, tile_size))  
@@ -137,7 +166,7 @@ class Game:
                 self.remaining_time += 8
 
     def draw_game(self):
-        screen.fill((255, 255, 255))  
+        image.load('we need this.png')
 
         for row in range(0, screen_height, tile_size):
             for col in range(0, screen_width, tile_size):
