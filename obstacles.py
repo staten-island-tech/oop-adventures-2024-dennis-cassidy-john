@@ -22,3 +22,4 @@ player = {'health':100}
 
 obstacle.cactus_damage(player)
 obstacle.quicksand_damage(player)
+obstacle.quicksand_damage(player)

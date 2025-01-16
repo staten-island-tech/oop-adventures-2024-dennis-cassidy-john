@@ -21,7 +21,7 @@ class Player():
 player = Player(player = "Omar", health=100)
 print(player)
 
-player.take_damage(10)
+player.take_damage(70)
 
 player.heal(100)
 
