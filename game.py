@@ -1,23 +1,27 @@
 import pygame
 import sys
-import pytmx
 
 pygame.init()
+
 tile_size = 16
 cols, rows = 20, 16
 screen_width = cols * tile_size
 screen_height = rows * tile_size
 screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption('collect the items')
+
 omar_image = pygame.image.load('omar.png')  
 omar_image = pygame.transform.scale(omar_image, (tile_size, tile_size))    
+
 water_image = pygame.image.load('water.png')
 water_image = pygame.transform.scale(water_image, (tile_size, tile_size))
+
 camel_image = pygame.image.load('camel.png')
 camel_image = pygame.transform.scale(camel_image, (tile_size, tile_size))
 font = pygame.font.Font(None, 24)  
 game_over_font = pygame.font.Font(None, 36)  
 clock = pygame.time.Clock()
+
 class omar:
     def __init__(self, x, y):
         self.x = x
@@ -113,6 +117,7 @@ class Game:
         self.omar.draw()
         timer_text = font.render(f"Time: {self.remaining_time}s", True, (0, 0, 0))
         screen.blit(timer_text, (10, 10))
+        
     def display_game_over(self, message):
         screen.fill((255, 255, 255))  
         game_over_text = game_over_font.render(message, True, (255, 0, 0))  
