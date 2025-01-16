@@ -6,6 +6,7 @@ pygame.init()
 tile_size = 16
 cols, rows = 20, 16
 screen_width = cols * tile_size
+
 screen_height = rows * tile_size
 screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption('Move Omar One Tile at a Time on 20x16 Grid with Countdown Timer')
@@ -26,11 +27,14 @@ game_over_font = pygame.font.Font(None, 72)
 
 clock = pygame.time.Clock()
 
+
+
 class Omar:
-    def __init__(self, x, y, health=100):
+    def __init__(self, x, y, health, max_health=100):
         self.x = x
         self.y = y
         self.health = health
+        self.max_health = max_health
         self.image = omar_image
     
     def move(self, dx, dy):
@@ -46,6 +50,8 @@ class Omar:
     def water(self, water):
         if self.x == water.x and self.y == water.y:
             self.health += 5
+            if self.health > self.max_health:
+                self.health = self.max_health
             return True
         return False
     
@@ -73,7 +79,7 @@ class water:
 
 class Game:
     def __init__(self):
-        self.omar = Omar(5, 5)  
+        self.omar = Omar(5, 5, 100)  
         self.cacti = [Cactus(8, 8), Cactus(12, 6), Cactus(3, 10)]  
         self.water = [water(15,1), water (12,12), water (5,2)]
         self.countdown_time = 60  

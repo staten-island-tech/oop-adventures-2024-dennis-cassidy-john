@@ -5,8 +5,6 @@ class Time():
         self.time = time
         self.clock = clock
     def __str__(self):
-        return f"{self.time}, {self.clock}"
-    def __str__(self):
         return self.format_time()
 
     def format_time(self):
