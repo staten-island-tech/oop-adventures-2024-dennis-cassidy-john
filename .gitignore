@@ -1,5 +1,6 @@
 venv
-venv
+.venv
 frames
 tilemap
 path
+venv
