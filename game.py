@@ -32,19 +32,6 @@ game_over_font = pygame.font.Font(None, 36)
 
 clock = pygame.time.Clock()
 
-def draw_button(text, x, y, width, height, color, text_color, action=None):
-    mouse = pygame.mouse.get_pos()
-    click = pygame.mouse.get_pressed()
-
-    pygame.draw.rect(screen, color, (x, y, width, height))
-    button_text = font.render(text, True, text_color)
-    text_rect = button_text.get_rect(center=(x + width // 2, y + height // 2))
-    screen.blit(button_text, text_rect)
-
-    # Detect click
-    if x < mouse[0] < x + width and y < mouse[1] < y + height:
-        if click[0] == 1 and action:
-            action()
 
 
 def generate_random_positions(count, exclude_positions=None):
@@ -57,7 +44,7 @@ def generate_random_positions(count, exclude_positions=None):
     return list(positions)
 
 
-# Classes
+
 class Omar:
     def __init__(self, x, y, health, max_health=100):
         self.x = x
